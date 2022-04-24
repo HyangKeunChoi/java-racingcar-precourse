@@ -2,12 +2,12 @@ package racingcar.domain;
 
 public class CarValidation {
 
-    public static boolean validateCarName(String input) {
-        if (checkBlank(input)) return false;
-        if (checkComma(input)) return false;
+    public static boolean validateCarName(CarName input) {
+        if (checkBlank(input.getName())) return false;
+        if (checkComma(input.getName())) return false;
 
-        if (checkLength(input.split(","))) return false;
-        for (String name : input.split(",")) {
+        if (checkLength(input.getName().split(","))) return false;
+        for (String name : input.getName().split(",")) {
             if (checkName(name)) return false;
         }
         return true;

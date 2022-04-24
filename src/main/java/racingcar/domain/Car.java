@@ -2,22 +2,22 @@ package racingcar.domain;
 
 public class Car {
 
-    private int position;
-    private String name;
+    private CarPosition position;
+    private CarName name;
 
-    public Car(String name, int position) {
+    public Car(CarName name, CarPosition position) {
         CarValidation.validateCarName(name);
-        this.name = name;
-        this.position = position;
+        this.name = new CarName();
+        this.position = new CarPosition();
     }
 
     public void move(int number) {
         if (number >= 4) {
-            this.position += 1;
+            position = position.move();
         }
     }
 
-    public int getPostion() {
-        return this.position;
+    public int getPosition() {
+        return position.getPosition();
     }
 }
