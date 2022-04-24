@@ -2,21 +2,28 @@ package racingcar.domain;
 
 public class CarValidation {
 
-    public static boolean validateCarName(CarName input) {
-        if (checkBlank(input.getName())) return false;
-        if (checkComma(input.getName())) return false;
+    public static boolean validateCarName(String input) {
+        if (checkBlank(input)) return false;
+        if (checkComma(input)) return false;
 
-        if (checkLength(input.getName().split(","))) return false;
-        for (String name : input.getName().split(",")) {
-            if (checkName(name)) return false;
-        }
+        if (checkLength(input.split(","))) return false;
+        if (checkName(input.split(","))) return false;
+
         return true;
     }
 
-    private static boolean checkName(String name) {
+    private static boolean checkName(String[] names) {
+        for (String name : names) {
+            if (validName(name)) return true;
+        }
+        return false;
+    }
+
+    private static boolean validName(String name) {
         if (!isNameValid(name)) {
             return true;
         }
+
         if (!isTrimNameValid(name)) {
             return true;
         }

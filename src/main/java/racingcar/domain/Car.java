@@ -6,7 +6,6 @@ public class Car {
     private CarName name;
 
     public Car(CarName name, CarPosition position) {
-        CarValidation.validateCarName(name);
         this.name = new CarName();
         this.position = new CarPosition();
     }
