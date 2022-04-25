@@ -2,6 +2,7 @@ package racingcar.domain;
 
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
+import racingcar.constant.ConstantMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class RacingGame {
     }
 
     private void splitCar(String input) {
-        String[] names = input.split(",");
+        String[] names = input.split(ConstantMessage.COMMA);
         List<Car> carsList = new ArrayList<>();
         for (int i = 0; i < names.length; i++) {
             carsList.add(new Car(names[i], new CarPosition()));
@@ -54,39 +55,49 @@ public class RacingGame {
 
     public void drawCarMove(Cars cars) {
         for (Car car : cars.getCars()) {
-            System.out.print(car.getName().getName() + " : ");
-            drawCarMoveBar(car);
+            System.out.print(car.getName().getName() + ConstantMessage.COLON);
+            drawCarMoveByHyphen(car);
             System.out.println();
         }
     }
 
-    private void drawCarMoveBar(Car car) {
-        for(int i = 0; i< car.getPosition(); i++) {
-            System.out.print("-");
+    private void drawCarMoveByHyphen(Car car) {
+        for (int i = 0; i < car.getPosition(); i++) {
+            System.out.print(ConstantMessage.HYPHEN);
         }
     }
 
     public void printWinnerCar(Cars cars) {
         int maxPostition = 0;
         for (Car car : cars.getCars()) {
-            if(maxPostition < car.getPosition()) {
-                maxPostition = car.getPosition();
-            }
+            maxPostition = getMaxPostition(maxPostition, car);
         }
-
         List<String> winnerCar = new ArrayList<>();
         for (Car car : cars.getCars()) {
-            if(car.getPosition() == maxPostition) {
-                winnerCar.add(car.getName().getName());
-            }
+            getWinnerCarName(maxPostition, winnerCar, car);
         }
+        printWinnerCar(winnerCar);
+    }
 
-        if(winnerCar.size() == 1) {
-            System.out.println("최종 우승자: " + winnerCar.get(0));
+    private void printWinnerCar(List<String> winnerCar) {
+        if (winnerCar.size() == 1) {
+            System.out.println(ConstantMessage.FINAL_WINNER + winnerCar.get(0));
         }
+        if (winnerCar.size() != 1) {
+            System.out.println(ConstantMessage.FINAL_WINNER + String.join(ConstantMessage.COMMA, winnerCar));
+        }
+    }
 
-        if(winnerCar.size() != 1) {
-            System.out.println("최종 우승자: " + String.join(",", winnerCar));
+    private void getWinnerCarName(int maxPostition, List<String> winnerCar, Car car) {
+        if (car.getPosition() == maxPostition) {
+            winnerCar.add(car.getName().getName());
         }
+    }
+
+    private int getMaxPostition(int maxPostition, Car car) {
+        if (maxPostition < car.getPosition()) {
+            maxPostition = car.getPosition();
+        }
+        return maxPostition;
     }
 }

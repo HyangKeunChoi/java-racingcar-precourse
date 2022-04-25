@@ -1,31 +1,34 @@
 package racingcar.domain;
 
+import racingcar.constant.ConstantMessage;
+import racingcar.constant.ConstantNumber;
+
 public class CarValidation {
 
     public static boolean validateCarName(String input) {
         if (checkBlank(input)) return false;
         if (checkComma(input)) return false;
 
-        if (checkLength(input.split(","))) return false;
-        if (checkName(input.split(","))) return false;
+        if (checkLength(input.split(ConstantMessage.COMMA))) return false;
+        if (checkName(input.split(ConstantMessage.COMMA))) return false;
 
         return true;
     }
 
     private static boolean checkName(String[] names) {
         for (String name : names) {
-            if (validName(name)) return true;
+            validName(name);
         }
         return false;
     }
 
     private static boolean validName(String name) {
         if (!isNameValid(name)) {
-            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름 자리수를 입력해 주세요");
+            throw new IllegalArgumentException(ConstantMessage.IS_NOT_VALID_CAR_LENGTH);
         }
 
         if (!isTrimNameValid(name)) {
-            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름 자리수를 입력해 주세요");
+            throw new IllegalArgumentException(ConstantMessage.IS_NOT_VALID_CAR_LENGTH);
         }
         return false;
     }
@@ -35,26 +38,26 @@ public class CarValidation {
     }
 
     private static boolean isNameValid(String name) {
-        return name.length() >= 1 && name.length() <= 5;
+        return name.length() >= ConstantNumber.MINIMUN_NAME_LENGTH && name.length() <= ConstantNumber.MAXIMUN_NAME_LENGTH;
     }
 
     private static boolean checkLength(String[] splitInput) {
-        if (splitInput.length < 2) {
-            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름을 입력해 주세요");
+        if (splitInput.length < ConstantNumber.CAN_PARTICIPATE_CAR) {
+            throw new IllegalArgumentException(ConstantMessage.CAN_PARTICIPATE_CAR);
         }
         return false;
     }
 
     private static boolean checkComma(String input) {
-        if (!input.contains(",")) {
-            throw new IllegalArgumentException("[ERROR] 경주 할 자동차 이름(이름은 쉼표(,) 기준으로 구분)");
+        if (!input.contains(ConstantMessage.COMMA)) {
+            throw new IllegalArgumentException(ConstantMessage.SPLIT_CAR_NAME_BY_COMMA);
         }
         return false;
     }
 
     private static boolean checkBlank(String input) {
         if ("".equals(input) || " ".equals(input)) {
-            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름을 입력해 주세요");
+            throw new IllegalArgumentException(ConstantMessage.PLEASE_INPUT_RIGHT_CAR_NAME);
         }
         return false;
     }

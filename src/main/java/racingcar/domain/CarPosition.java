@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import racingcar.constant.ConstantNumber;
+
 import java.util.Objects;
 
 public class CarPosition {
@@ -7,7 +9,7 @@ public class CarPosition {
     private final int position;
 
     public CarPosition() {
-        this(0);
+        this(ConstantNumber.ZERO_POSITION);
     }
 
     public CarPosition(int position) {
@@ -15,7 +17,7 @@ public class CarPosition {
     }
 
     public CarPosition move() {
-        return new CarPosition(position + 1);
+        return new CarPosition(position + ConstantNumber.MOVE_ONCE);
     }
 
     public int getPosition() {

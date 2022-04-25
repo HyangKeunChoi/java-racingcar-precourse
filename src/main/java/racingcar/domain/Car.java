@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import racingcar.constant.ConstantNumber;
+
 public class Car {
 
     private CarPosition position;
@@ -7,11 +9,11 @@ public class Car {
 
     public Car(final String name, CarPosition position) {
         this.name = new CarName(name);
-        this.position = new CarPosition();
+        this.position = position;
     }
 
     public void move(int number) {
-        if (number >= 4) {
+        if (number >= ConstantNumber.MOVABLE_NUMBER) {
             position = position.move();
         }
     }
