@@ -13,4 +13,6 @@ public class ConstantNumber {
     public static final int MAXIMUN_NAME_LENGTH = 5;
 
     public static final int CAN_PARTICIPATE_CAR = 2;
+
+    public static final int WINNING_CAR_IS_ONE = 1;
 }

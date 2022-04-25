@@ -3,6 +3,7 @@ package racingcar.domain;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import racingcar.constant.ConstantMessage;
+import racingcar.constant.ConstantNumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,24 +81,28 @@ public class RacingGame {
     }
 
     private void printWinnerCar(List<String> winnerCar) {
-        if (winnerCar.size() == 1) {
+        if (winnerCar.size() == ConstantNumber.WINNING_CAR_IS_ONE) {
             System.out.println(ConstantMessage.FINAL_WINNER + winnerCar.get(0));
         }
-        if (winnerCar.size() != 1) {
+        if (winnerCar.size() != ConstantNumber.WINNING_CAR_IS_ONE) {
             System.out.println(ConstantMessage.FINAL_WINNER + String.join(ConstantMessage.COMMA, winnerCar));
         }
     }
 
     private void getWinnerCarName(int maxPostition, List<String> winnerCar, Car car) {
-        if (car.getPosition() == maxPostition) {
+        if(car.isWinner(maxPostition)) {
             winnerCar.add(car.getName().getName());
         }
     }
 
     private int getMaxPostition(int maxPostition, Car car) {
-        if (maxPostition < car.getPosition()) {
+        if (lessThanCarPosition(maxPostition, car)) {
             maxPostition = car.getPosition();
         }
         return maxPostition;
+    }
+
+    private boolean lessThanCarPosition(int maxPostition, Car car) {
+        return maxPostition < car.getPosition();
     }
 }
