@@ -5,8 +5,8 @@ public class Car {
     private CarPosition position;
     private CarName name;
 
-    public Car(CarName name, CarPosition position) {
-        this.name = new CarName();
+    public Car(final String name, CarPosition position) {
+        this.name = new CarName(name);
         this.position = new CarPosition();
     }
 
@@ -18,5 +18,9 @@ public class Car {
 
     public int getPosition() {
         return position.getPosition();
+    }
+
+    public CarName getName() {
+        return name;
     }
 }
