@@ -5,7 +5,7 @@ import racingcar.constant.ConstantMessage;
 import racingcar.domain.Cars;
 import racingcar.domain.RacingGame;
 
-public class InputView {
+public class GameRunner {
 
     RacingGame racingGame = new RacingGame();
 
