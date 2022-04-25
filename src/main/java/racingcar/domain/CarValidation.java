@@ -6,12 +6,10 @@ import racingcar.constant.ConstantNumber;
 public class CarValidation {
 
     public static boolean validateCarName(String input) {
-        if (checkBlank(input)) return false;
-        if (checkComma(input)) return false;
-
-        if (checkLength(input.split(ConstantMessage.COMMA))) return false;
+        if (includedBlankAndSpace(input)) return false;
+        if (includedComma(input)) return false;
+        if (leastParticipateCar(input.split(ConstantMessage.COMMA))) return false;
         if (checkName(input.split(ConstantMessage.COMMA))) return false;
-
         return true;
     }
 
@@ -23,39 +21,38 @@ public class CarValidation {
     }
 
     private static boolean validName(String name) {
-        if (!isNameValid(name)) {
+        if (!isValidLengthName(name)) {
             throw new IllegalArgumentException(ConstantMessage.IS_NOT_VALID_CAR_LENGTH);
         }
-
-        if (!isTrimNameValid(name)) {
+        if (!includedBlank(name)) {
             throw new IllegalArgumentException(ConstantMessage.IS_NOT_VALID_CAR_LENGTH);
         }
         return false;
     }
 
-    private static boolean isTrimNameValid(String name) {
+    private static boolean includedBlank(String name) {
         return name.length() == name.trim().length();
     }
 
-    private static boolean isNameValid(String name) {
+    private static boolean isValidLengthName(String name) {
         return name.length() >= ConstantNumber.MINIMUN_NAME_LENGTH && name.length() <= ConstantNumber.MAXIMUN_NAME_LENGTH;
     }
 
-    private static boolean checkLength(String[] splitInput) {
+    private static boolean leastParticipateCar(String[] splitInput) {
         if (splitInput.length < ConstantNumber.CAN_PARTICIPATE_CAR) {
             throw new IllegalArgumentException(ConstantMessage.CAN_PARTICIPATE_CAR);
         }
         return false;
     }
 
-    private static boolean checkComma(String input) {
+    private static boolean includedComma(String input) {
         if (!input.contains(ConstantMessage.COMMA)) {
             throw new IllegalArgumentException(ConstantMessage.SPLIT_CAR_NAME_BY_COMMA);
         }
         return false;
     }
 
-    private static boolean checkBlank(String input) {
+    private static boolean includedBlankAndSpace(String input) {
         if ("".equals(input) || " ".equals(input)) {
             throw new IllegalArgumentException(ConstantMessage.PLEASE_INPUT_RIGHT_CAR_NAME);
         }
