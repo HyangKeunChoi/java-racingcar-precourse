@@ -21,11 +21,11 @@ public class CarValidation {
 
     private static boolean validName(String name) {
         if (!isNameValid(name)) {
-            return true;
+            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름 자리수를 입력해 주세요");
         }
 
         if (!isTrimNameValid(name)) {
-            return true;
+            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름 자리수를 입력해 주세요");
         }
         return false;
     }
@@ -40,21 +40,21 @@ public class CarValidation {
 
     private static boolean checkLength(String[] splitInput) {
         if (splitInput.length < 2) {
-            return true;
+            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름을 입력해 주세요");
         }
         return false;
     }
 
     private static boolean checkComma(String input) {
         if (!input.contains(",")) {
-            return true;
+            throw new IllegalArgumentException("[ERROR] 경주 할 자동차 이름(이름은 쉼표(,) 기준으로 구분)");
         }
         return false;
     }
 
     private static boolean checkBlank(String input) {
         if ("".equals(input) || " ".equals(input)) {
-            return true;
+            throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름을 입력해 주세요");
         }
         return false;
     }

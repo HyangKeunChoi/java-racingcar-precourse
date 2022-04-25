@@ -12,9 +12,7 @@ public class RacingGame {
 
     public Cars play(String input) {
         try {
-            if (!CarValidation.validateCarName(input)) {
-                throw new IllegalArgumentException("[ERROR] 정확한 자동차 이름을 입력해 주세요");
-            }
+            CarValidation.validateCarName(input);
             splitCar(input);
         } catch (Exception e) {
             printErrorMessage(e);
@@ -24,7 +22,7 @@ public class RacingGame {
 
     private void printErrorMessage(Exception e) {
         e.printStackTrace();
-        System.out.println("경주 할 자동차 이름(이름은 쉼표(,) 기준으로 구분)");
+        System.out.println(e.getMessage());
         restartGame();
     }
 
@@ -49,8 +47,46 @@ public class RacingGame {
         String[] names = input.split(",");
         List<Car> carsList = new ArrayList<>();
         for (int i = 0; i < names.length; i++) {
-            carsList.add(new Car(new CarName(names[i]), new CarPosition()));
+            carsList.add(new Car(names[i], new CarPosition()));
         }
         cars = new Cars(carsList);
+    }
+
+    public void drawCarMove(Cars cars) {
+        for (Car car : cars.getCars()) {
+            System.out.print(car.getName().getName() + " : ");
+            drawCarMoveBar(car);
+            System.out.println();
+        }
+    }
+
+    private void drawCarMoveBar(Car car) {
+        for(int i = 0; i< car.getPosition(); i++) {
+            System.out.print("-");
+        }
+    }
+
+    public void printWinnerCar(Cars cars) {
+        int maxPostition = 0;
+        for (Car car : cars.getCars()) {
+            if(maxPostition < car.getPosition()) {
+                maxPostition = car.getPosition();
+            }
+        }
+
+        List<String> winnerCar = new ArrayList<>();
+        for (Car car : cars.getCars()) {
+            if(car.getPosition() == maxPostition) {
+                winnerCar.add(car.getName().getName());
+            }
+        }
+
+        if(winnerCar.size() == 1) {
+            System.out.println("최종 우승자: " + winnerCar.get(0));
+        }
+
+        if(winnerCar.size() != 1) {
+            System.out.println("최종 우승자: " + String.join(",", winnerCar));
+        }
     }
 }
